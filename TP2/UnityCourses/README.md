@@ -1,10 +1,10 @@
 # UnityCourses
 
-# TP2 - Infinite Side Scroller
+## TP2 - Infinite Side Scroller
 
-## Lancer le .exe
+### Lancer le .exe
 
-## Utiliser la touche *Espace* pour sauter
-## Utiliser *Echap* pour mettre le jeu en pause
+### Utiliser la touche *Espace* pour sauter
+### Utiliser *Echap* pour mettre le jeu en pause
 
-## Bon jeu !
+### Bon jeu !
