@@ -2,38 +2,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 30f;  // Force du saut
-    private Rigidbody rb;  // Référence au Rigidbody du joueur
+    public float jumpForce = 10f;
+    private Rigidbody2D rb;
+    private bool isGrounded;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();  // On récupère le Rigidbody
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        // Vérifie si le joueur appuie sur la touche "Jump" (espace)
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            // Vérifie si la capsule touche bien une plateforme
-            if (IsGrounded())
-            {
-                Jump();  // Appelle la fonction de saut
-            }
+            rb.linearVelocity = Vector2.up * jumpForce;
         }
     }
 
-    void Jump()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Applique une force de saut sur l'axe Y
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 
-    bool IsGrounded()
+    void OnCollisionExit2D(Collision2D collision)
     {
-        // Utilise la taille du collider pour définir un rayon dynamique
-        float capsuleHeight = GetComponent<Collider>().bounds.extents.y;
-        return Physics.Raycast(transform.position, Vector3.down, capsuleHeight + 0.1f);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
-
 }
